@@ -1,9 +1,9 @@
 <div class="main-content">
   <div class="container-fluid">
-    <div class="row">
+    <div class="row" style="background-color:  #428bca">
 
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <h3>Author Management</h3>
+        <h3 style="color:white;">Author Management</h3>
       </div>
       <hr>
 
@@ -28,8 +28,8 @@
             <ng-template kendoGridToolbarTemplate>
               <div class="row">
 
-                <div class="col-xs-6 col-sm-6 col-md-8 col-lg-6">
-                  <button kendoGridAddCommand [routerLink]="['/edit-book']" style="background: green;width: 100px;color: white">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  <button kendoGridAddCommand  style="background: green;width: 175px;color: white;float: right">
                     <i class="fas fa-plus">
 
                     </i>
@@ -39,7 +39,7 @@
 
               </div>
 
-              <div class="row">
+              <div class="row" style="height: 10px">
 
               </div>
 
@@ -47,6 +47,7 @@
               <div class="row">
 
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <span>Item</span>
                   <kendo-combobox [data]="listItems" [value]="'15'" (valueChange)="valueChange($event)" (selectionChange)="selectionChange($event)">
                   </kendo-combobox>
                 </div>

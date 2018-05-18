@@ -22,7 +22,7 @@ export class Book{
         this.AuthorID=1;
         this.PublisherID=1;
         this.Summary="";
-        this.ImgUrl="";
+        this.ImgUrl="../../../assets/img/default.png";
         this.Price=0;
         this.Quantity=0;
         this.IsActive=true;

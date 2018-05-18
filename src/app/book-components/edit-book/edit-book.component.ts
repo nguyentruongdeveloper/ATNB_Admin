@@ -45,14 +45,14 @@ export class EditBookComponent implements OnInit  {
     };
     public editForm: FormGroup = new FormGroup({
         'Title': new FormControl('', Validators.required),
-        'Summary': new FormControl(),
+        'Summary': new FormControl('', Validators.required),
         'Image': new FormControl(),
         'CategoryID': new FormControl('', Validators.required),
         'AuthorID': new FormControl('', Validators.required),
-        'PublisherID': new FormControl(),
+        'PublisherID': new FormControl('', Validators.required),
         'Price': new FormControl(),
         'Quantity': new FormControl(),
-        'StatusBookID': new FormControl(),
+        'StatusBookID': new FormControl('', Validators.required),
         
     });
 

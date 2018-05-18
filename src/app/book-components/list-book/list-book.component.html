@@ -1,9 +1,9 @@
 <div class="main-content">
   <div class="container-fluid">
-    <div class="row">
+    <div class="row" style="background:#428bca">
 
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-        <h3> Book Management</h3>
+        <h3 style="color: white"> Book Management</h3>
       </div>
       <hr>
 
@@ -17,8 +17,8 @@
             <ng-template kendoGridToolbarTemplate>
               <div class="row">
 
-                <div class="col-xs-6 col-sm-6 col-md-8 col-lg-6">
-                  <button kendoGridAddCommand [routerLink]="['/edit-book']" [queryParams]="{isNew: 'true',Id:'0'}" style="background: green;width: 100px;color: white">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  <button kendoGridAddCommand [routerLink]="['/edit-book']" [queryParams]="{isNew: 'true',Id:'0'}" style="background: green;width: 175px;color: white; float: right;">
                     <i class="fas fa-plus">
 
                     </i>
@@ -27,10 +27,16 @@
 
 
               </div>
+              
+              <div class="row" style="height: 10px;">
+                
+              </div>
+              
               <form #frmSearch="ngForm" (ngSubmit)="onSubmit(frmSearch)" novalidate>
               <div class="row">
                  
                   <div class="col-sm-2">
+                      <span>Item</span>
                       <kendo-combobox [data]="listItems" [value]="'15'">
                         </kendo-combobox>
                   </div>

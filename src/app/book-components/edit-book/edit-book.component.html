@@ -30,18 +30,28 @@
 
                   <input class="k-textbox" formControlName="Summary" placeholder="Mô tả" />
                 </label>
+                <div class="k-tooltip k-tooltip-validation" [hidden]="editForm.controls.Summary.valid || editForm.controls.Summary.pristine">
+                    Summary is required
+                </div>
 
                 <label class="k-form-field">
                   <span>Danh mục</span>
-                  <kendo-dropdownlist name="category" [data]="arrCategory" [textField]="'CategoryName'" [valueField]="'CategoryID'" formControlName="CategoryID"
-                    [defaultItem]="{ CategoryName: 'Chọn danh mục', CategoryID: '0' }" [valuePrimitive]="true" required style="width: 100%">
+                  <kendo-dropdownlist name="category"
+                   [data]="arrCategory" 
+                   [textField]="'CategoryName'" 
+                   [valueField]="'CategoryID'" 
+                   formControlName="CategoryID"
+                   [valuePrimitive]="true" required style="width: 100%">
                   </kendo-dropdownlist>
                 </label>
                 <label class="k-form-field">
                   <span>Tác giả</span>
-                  <kendo-dropdownlist name="author" [data]="arrAuthor" [textField]="'AuthorName'" [valueField]="'AuthorID'" 
-                   formControlName="AuthorID"
-                    [defaultItem]="{ AuthorName: 'Chọn tác giả', AuthorID: '0' }" [valuePrimitive]="true" required style="width: 100%">
+                  <kendo-dropdownlist name="author" 
+                  [data]="arrAuthor" 
+                  [textField]="'AuthorName'" 
+                  [valueField]="'AuthorID'" 
+                  formControlName="AuthorID"
+                  [valuePrimitive]="true" required style="width: 100%">
                   </kendo-dropdownlist>
                 </label>
                 <div class="k-tooltip k-tooltip-validation" [hidden]="editForm.controls. AuthorID.valid || editForm.controls. AuthorID.pristine">
@@ -49,8 +59,14 @@
                 </div>
                 <label class="k-form-field">
                   <span>Nhà xuất bản</span>
-                  <kendo-dropdownlist name="publisher" [data]="arrPublisher" [textField]="'PublisherName'" [valueField]="'PublisherID'" [defaultItem]="{ PublisherName: 'Chọn nhà xuất bản', PublisherID: '0' }"
-                    formControlName="PublisherID" [valuePrimitive]="true" required style="width: 100%">
+                  <kendo-dropdownlist name="publisher" 
+                  [data]="arrPublisher" 
+                  [textField]="'PublisherName'" 
+                  [valueField]="'PublisherID'" 
+                
+                  
+                  formControlName="PublisherID" 
+                  [valuePrimitive]="true" required style="width: 100%">
                   </kendo-dropdownlist>
                 </label>
                 <label class="k-form-field">
@@ -63,9 +79,13 @@
                 </label>
                 <label class="k-form-field">
                   <span>Trạng thái</span>
-                  <kendo-dropdownlist name="statusbook" [data]="arrStatusBook" [textField]="'StatusBookName'" [valueField]="'StatusBookID'"
-                    [defaultItem]="{ StatusBookName: 'Chọn trạng thái sách', StatusBookID: '0' }" formControlName="StatusBookID"
-                    [valuePrimitive]="true" required style="width: 100%">
+                  <kendo-dropdownlist name="statusbook" 
+                  [data]="arrStatusBook" 
+                  [textField]="'StatusBookName'" 
+                  [valueField]="'StatusBookID'"
+                    
+                  formControlName="StatusBookID"
+                  [valuePrimitive]="true" required style="width: 100%">
                   </kendo-dropdownlist>
                 </label>
 
@@ -75,7 +95,7 @@
                     <i class="glyphicon glyphicon-arrow-left"></i>
                     &nbsp; &nbsp; Quay lại
                   </button>
-                  <button kendoButton type="submit" style="background: green;width: 200px;color: white">
+                  <button kendoButton type="submit" style="background: green;width: 200px;color: white"  [disabled]="!editForm.valid">
                     <i class="glyphicon glyphicon-arrow-right"></i>
                     &nbsp; &nbsp; Tạo
                   </button>
