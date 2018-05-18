@@ -1,6 +1,6 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
@@ -23,6 +23,10 @@ import {
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { LoginComponent } from './components/login/login.component';
+import { UserService } from './service/user.service';
+import { ShareDataUserService } from './service/share-data-user.service';
+import { ShareService } from './service/shareservice';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -32,6 +36,8 @@ import { LoginComponent } from './components/login/login.component';
     BrowserAnimationsModule,
     FormsModule,
     HttpModule,
+    ReactiveFormsModule,
+    HttpClientModule,
     
     ComponentsModule,
     RouterModule,
@@ -49,7 +55,7 @@ import { LoginComponent } from './components/login/login.component';
 
 
   ],
-  providers: [],
+  providers: [UserService,ShareDataUserService,ShareService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

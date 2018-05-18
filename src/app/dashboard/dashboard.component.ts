@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as Chartist from 'chartist';
+import { ShareDataUserService } from '../service/share-data-user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,7 +10,10 @@ import * as Chartist from 'chartist';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _shareDataUserService:ShareDataUserService,
+    public urlRouter:Router
+
+  ) { }
   startAnimationForLineChart(chart){
       let seq: any, delays: any, durations: any;
       seq = 0;
@@ -65,7 +70,12 @@ export class DashboardComponent implements OnInit {
 
       seq2 = 0;
   };
-  ngOnInit() {
+  ngOnInit()
+   {
+    if(this._shareDataUserService.User==null)
+    {
+      this.urlRouter.navigate(['/login']);
+    }
       /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
 
       const dataDailySalesChart: any = {

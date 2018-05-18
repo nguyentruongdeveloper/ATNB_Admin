@@ -3,6 +3,8 @@ import { Author } from '../../model/author';
 import { GridDataResult, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
 import { AuthorService } from '../../service/author.service';
+import { ShareDataUserService } from '../../service/share-data-user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-author',
@@ -22,9 +24,20 @@ export class ListAuthorComponent implements OnInit {
   private arrCategory: Author[];
   public totalRecord: number = 0;
   public searchname: string = "0";
-  constructor(public authorService: AuthorService) { }
+  constructor(public authorService: AuthorService,
+    private _shareDataUserService:   ShareDataUserService,
+    private _urlRouter :Router
+     )
+      { 
+
+      }
 
   ngOnInit() {
+    //check Login
+    if(this._shareDataUserService.User==null)
+    {
+      this._urlRouter.navigate(['/login']);
+    }
     this.loadData(this.searchname, this.skip / this.pageSize, this.pageSize);
   }
   public valueChange(value: any): void {

@@ -41,6 +41,22 @@ export class ShareService {
         
         
     }
+    httpGetLogin(_url:string): Observable<any> {
+        
+        return this._http.get(_url)
+        .map((response: Response) => {
+            return {
+                data: response["data"],
+                IsLoginSuss:response["IsLoginSuss"]
+              
+            }
+          
+
+        }).
+        catch(this.handleError);  
+        
+        
+    }
     httpPostFile(_url:string, file:  any):Observable<any>
     {
         return this._http.post(_url, file);
