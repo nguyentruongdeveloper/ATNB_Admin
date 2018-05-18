@@ -1,0 +1,121 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <h3>{{TitleForm}}</h3>
+          </div>
+        </div>
+    <div class="row example-wrapper">
+
+     
+
+
+      <div class="row">
+        <form class="k-form" novalidate [formGroup]="editForm" (ngSubmit)="onSubmit()">
+          <div class="col-xs-12 col-sm-6 example-col">
+
+            <div class="card">
+              <div class="card-block">
+
+
+                <label class="k-form-field">
+
+                  <input class="k-textbox" formControlName="Title" placeholder="Tựa sách" />
+
+                </label>
+                <div class="k-tooltip k-tooltip-validation" [hidden]="editForm.controls.Title.valid || editForm.controls.Title.pristine">
+                    Title is required
+                </div>
+                <label class="k-form-field">
+
+                  <input class="k-textbox" formControlName="Summary" placeholder="Mô tả" />
+                </label>
+
+                <label class="k-form-field">
+                  <span>Danh mục</span>
+                  <kendo-dropdownlist name="category" [data]="arrCategory" [textField]="'CategoryName'" [valueField]="'CategoryID'" formControlName="CategoryID"
+                    [defaultItem]="{ CategoryName: 'Chọn danh mục', CategoryID: '0' }" [valuePrimitive]="true" required style="width: 100%">
+                  </kendo-dropdownlist>
+                </label>
+                <label class="k-form-field">
+                  <span>Tác giả</span>
+                  <kendo-dropdownlist name="author" [data]="arrAuthor" [textField]="'AuthorName'" [valueField]="'AuthorID'" 
+                   formControlName="AuthorID"
+                    [defaultItem]="{ AuthorName: 'Chọn tác giả', AuthorID: '0' }" [valuePrimitive]="true" required style="width: 100%">
+                  </kendo-dropdownlist>
+                </label>
+                <div class="k-tooltip k-tooltip-validation" [hidden]="editForm.controls. AuthorID.valid || editForm.controls. AuthorID.pristine">
+                  Author is required
+                </div>
+                <label class="k-form-field">
+                  <span>Nhà xuất bản</span>
+                  <kendo-dropdownlist name="publisher" [data]="arrPublisher" [textField]="'PublisherName'" [valueField]="'PublisherID'" [defaultItem]="{ PublisherName: 'Chọn nhà xuất bản', PublisherID: '0' }"
+                    formControlName="PublisherID" [valuePrimitive]="true" required style="width: 100%">
+                  </kendo-dropdownlist>
+                </label>
+                <label class="k-form-field">
+                  <span>Giá</span>
+                  <kendo-numerictextbox formControlName="Price" [min]="0" style="width: 100%"></kendo-numerictextbox>
+                </label>
+                <label class="k-form-field">
+                  <span>Số lượng</span>
+                  <kendo-numerictextbox formControlName="Quantity" [min]="0" style="width: 100%"></kendo-numerictextbox>
+                </label>
+                <label class="k-form-field">
+                  <span>Trạng thái</span>
+                  <kendo-dropdownlist name="statusbook" [data]="arrStatusBook" [textField]="'StatusBookName'" [valueField]="'StatusBookID'"
+                    [defaultItem]="{ StatusBookName: 'Chọn trạng thái sách', StatusBookID: '0' }" formControlName="StatusBookID"
+                    [valuePrimitive]="true" required style="width: 100%">
+                  </kendo-dropdownlist>
+                </label>
+
+                <label>
+
+                  <button kendoButton (click)="onButtonClick()" type="submit" [routerLink]="['/book-management']" style="background: red;width: 200px;color: white">
+                    <i class="glyphicon glyphicon-arrow-left"></i>
+                    &nbsp; &nbsp; Quay lại
+                  </button>
+                  <button kendoButton type="submit" style="background: green;width: 200px;color: white">
+                    <i class="glyphicon glyphicon-arrow-right"></i>
+                    &nbsp; &nbsp; Tạo
+                  </button>
+
+                </label>
+
+
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-4 col-sm-4 example-col">
+
+            <div class="row">
+
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <img [src]="imgUrl" width="500" height="500">
+              </div>
+
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <label style="display: block; margin: .8em 0 .2em">Avatar:
+                  <label class="btn btn-success btn-sm" style="width: 100px;height: 30px; font-size: 14px">
+                    Browser
+                    <input type="file" id="avatar" (change)="onFileChange($event)" #fileInput formControlName="Image" style="display: none;">
+                </label>
+
+                </label>
+
+              </div>
+
+
+            </div>
+
+
+
+          </div>
+        </form>
+      </div>
+
+
+
+    </div>
+  </div>
+</div>

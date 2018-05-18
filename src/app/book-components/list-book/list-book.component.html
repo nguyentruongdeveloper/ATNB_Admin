@@ -1,0 +1,159 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <h3> Book Management</h3>
+      </div>
+      <hr>
+
+      <div class="row">
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <kendo-grid [data]="gridView" [height]="750" [pageSize]="pageSize" [skip]="skip" [pageable]="true" (edit)="editHandler($event)"
+            (remove)="removeHandler($event)" (add)="addHandler($event)">
+
+
+            <ng-template kendoGridToolbarTemplate>
+              <div class="row">
+
+                <div class="col-xs-6 col-sm-6 col-md-8 col-lg-6">
+                  <button kendoGridAddCommand [routerLink]="['/edit-book']" [queryParams]="{isNew: 'true',Id:'0'}" style="background: green;width: 100px;color: white">
+                    <i class="fas fa-plus">
+
+                    </i>
+                    &nbsp; Add new</button>
+                </div>
+
+
+              </div>
+              <form #frmSearch="ngForm" (ngSubmit)="onSubmit(frmSearch)" novalidate>
+              <div class="row">
+                 
+                  <div class="col-sm-2">
+                      <kendo-combobox [data]="listItems" [value]="'15'">
+                        </kendo-combobox>
+                  </div>
+                  <div class="col-sm-2">
+                      <span class="label">Category</span>
+                      <kendo-combobox [data]="listItems" [value]="'15'">
+                        </kendo-combobox>
+                  </div>
+                  <div class="col-sm-2">
+                      <span class="label">Author</span>
+                      <kendo-combobox [data]="listItems" [value]="'15'">
+                        </kendo-combobox>
+                  </div>
+                  <div class="col-sm-2">
+                    
+                    <span class="label">Publisher</span>
+                    
+                      <kendo-combobox [data]="listItems" [value]="'15'">
+                      </kendo-combobox>
+                  </div>
+                  <div class="col-sm-4">
+                      <div class="input-group">
+                          <input type="text" class="form-control SearchBar" placeholder="Search for..." name="txtSearch" ngModel
+    
+                          (mouseenter)="enterSearch(frmSearch)"
+                          (blur)="blurSearch(frmSearch)" style="border:1px solid;border-color:gainsboro; border-bottom:0px">
+    
+                          <button kendoButton>
+                            <i class="glyphicon glyphicon-search"></i>
+                            &nbsp; Search
+                          </button>
+    
+    
+                        </div>
+                    </div>
+                </div>
+              </form>
+
+              <!-- <div class="row">
+                <form #frmSearch="ngForm" (ngSubmit)="onSubmit(frmSearch)" novalidate>
+                  <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <kendo-combobox [data]="listItems" [value]="'15'">
+                    </kendo-combobox>
+                  </div>
+                  
+                  <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    
+                  </div>
+                  
+                  <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <kendo-dropdownlist></kendo-dropdownlist>
+                  </div>
+                  <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <kendo-dropdownlist></kendo-dropdownlist>
+                  </div>
+                  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+                    <div class="input-group">
+                      <input type="text" class="form-control SearchBar" placeholder="Search for..." name="txtSearch" ngModel
+
+                      (mouseenter)="enterSearch(frmSearch)"
+                      (blur)="blurSearch(frmSearch)" style="border:1px solid;border-color:gainsboro; border-bottom:0px">
+
+                      <button kendoButton>
+                        <i class="glyphicon glyphicon-search"></i>
+                        &nbsp; Search
+                      </button>
+
+
+                    </div>
+                  
+
+
+                  </div>
+                </form>
+
+
+
+
+
+
+              </div> -->
+
+            </ng-template>
+            <kendo-grid-column field="BookID" title="ID" width="40">
+            </kendo-grid-column>
+            <kendo-grid-column field="Title" title="Name" width="250">
+            </kendo-grid-column>
+            <kendo-grid-column field="CategoryName" title="Category">
+            </kendo-grid-column>
+            <kendo-grid-column field="AuthorName" title="Author">
+            </kendo-grid-column>
+            <kendo-grid-column field="PublisherName" title="Publisher">
+            </kendo-grid-column>
+            <kendo-grid-column field="Price" title="Price" width="80">
+            </kendo-grid-column>
+            <kendo-grid-column field="Quantity" title="Quantity" width="80">
+            </kendo-grid-column>
+            <kendo-grid-column field="StatusBookName" title="Status">
+            </kendo-grid-column>
+            <kendo-grid-column field="ImgUrl" title="Image" width="40" hidden=true>
+            </kendo-grid-column>
+
+            <kendo-grid-command-column title="command" width="220">
+              <ng-template kendoGridCellTemplate>
+                <button kendoGridEditCommand style="background:blue;width: 80px;color: white">
+                  <i class="far fa-edit"></i>
+                  &nbsp;Edit
+                </button>
+                <button kendoGridRemoveCommand style="background:red;width: 80px;color: white">
+                  <i class="far fa-trash-alt"></i>
+                  &nbsp; Delete
+                </button>
+              </ng-template>
+            </kendo-grid-command-column>
+          </kendo-grid>
+        </div>
+
+      </div>
+
+
+
+
+    </div>
+  </div>
+</div>
