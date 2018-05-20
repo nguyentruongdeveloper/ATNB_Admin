@@ -15,6 +15,7 @@ import { EditBookComponent } from '../../book-components/edit-book/edit-book.com
 import { ListCategoryBookComponent } from '../../category-book-components/list-category-book/list-category-book.component';
 import { ListAuthorComponent } from '../../author-components/list-author/list-author.component';
 import { ListPublisherComponent } from '../../publisher-components/list-publisher/list-publisher.component';
+import { ListUserComponent } from '../../user-components/list-user/list-user.component';
 
 
 
@@ -26,6 +27,7 @@ export const AdminLayoutRoutes: Routes = [
     {path:'publisher-management',component:ListPublisherComponent},
     {path:'publisher-management',component:ListPublisherComponent},
     {path:'book-management',component:ListBookComponent},
+    {path:'user-management',component:ListUserComponent},
     {path:'edit-book',component:EditBookComponent},
     // {
     //   path: '',

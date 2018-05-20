@@ -10,7 +10,7 @@
       <div class="row">
 
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-          <kendo-grid [data]="gridView" [height]="750" [pageSize]="pageSize" [skip]="skip" [pageable]="true" (edit)="editHandler($event)"
+          <kendo-grid [data]="gridView" [height]="750" [loading]="loading" [pageSize]="pageSize" [skip]="skip" [pageable]="true" (edit)="editHandler($event)"
             (remove)="removeHandler($event)" (add)="addHandler($event)">
 
 
@@ -27,51 +27,49 @@
 
 
               </div>
-              
+
               <div class="row" style="height: 10px;">
-                
+
               </div>
-              
+
               <form #frmSearch="ngForm" (ngSubmit)="onSubmit(frmSearch)" novalidate>
-              <div class="row">
-                 
+                <div class="row">
+
                   <div class="col-sm-2">
-                      <span>Item</span>
-                      <kendo-combobox [data]="listItems" [value]="'15'">
-                        </kendo-combobox>
+
+                    <kendo-combobox [data]="listItems" [value]="'15'">
+                    </kendo-combobox>
+                  </div>
+                  <!-- <div class="col-sm-2">
+
+                    <kendo-combobox [data]="listItems" [value]="'15'">
+                    </kendo-combobox>
                   </div>
                   <div class="col-sm-2">
-                      <span class="label">Category</span>
-                      <kendo-combobox [data]="listItems" [value]="'15'">
-                        </kendo-combobox>
+
+                    <kendo-combobox [data]="listItems" [value]="'15'">
+                    </kendo-combobox>
                   </div>
                   <div class="col-sm-2">
-                      <span class="label">Author</span>
-                      <kendo-combobox [data]="listItems" [value]="'15'">
-                        </kendo-combobox>
-                  </div>
-                  <div class="col-sm-2">
-                    
-                    <span class="label">Publisher</span>
-                    
-                      <kendo-combobox [data]="listItems" [value]="'15'">
-                      </kendo-combobox>
-                  </div>
-                  <div class="col-sm-4">
-                      <div class="input-group">
-                          <input type="text" class="form-control SearchBar" placeholder="Search for..." name="txtSearch" ngModel
-    
-                          (mouseenter)="enterSearch(frmSearch)"
-                          (blur)="blurSearch(frmSearch)" style="border:1px solid;border-color:gainsboro; border-bottom:0px">
-    
-                          <button kendoButton>
-                            <i class="glyphicon glyphicon-search"></i>
-                            &nbsp; Search
-                          </button>
-    
-    
-                        </div>
+
+                   
+
+                    <kendo-combobox [data]="listItems" [value]="'15'">
+                    </kendo-combobox>
+                  </div> -->
+                  <div class="col-sm-10">
+                    <div class="input-group">
+                      <input type="text" class="form-control SearchBar" placeholder="Search for..." name="txtSearch" ngModel (mouseenter)="enterSearch(frmSearch)"
+                        (blur)="blurSearch(frmSearch)" style="border:1px solid;border-color:gainsboro; border-bottom:0px">
+
+                      <button kendoButton>
+                        <i class="glyphicon glyphicon-search"></i>
+                        &nbsp; Search
+                      </button>
+
+
                     </div>
+                  </div>
                 </div>
               </form>
 

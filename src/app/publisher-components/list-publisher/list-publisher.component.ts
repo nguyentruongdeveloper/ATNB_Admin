@@ -23,6 +23,7 @@ export class ListPublisherComponent implements OnInit {
   private arrCategory: Publisher[];
   public totalRecord:number=0;
   public searchname:string ="0";
+  public loading:boolean=false;
 
   
 
@@ -93,6 +94,7 @@ public selectionChange(value: any): void {
   }
   //Load data
   public loadData(seachname:string, skip:number, pagesize:number) {
+    this.loading=true;
     this.publisherService.getPublisher(seachname, skip,pagesize).subscribe(
       (data) => {
       
@@ -104,6 +106,7 @@ public selectionChange(value: any): void {
           data: this.arrCategory,
           total: this.totalRecord
         }
+        this.loading=false;
       }
     )
   }

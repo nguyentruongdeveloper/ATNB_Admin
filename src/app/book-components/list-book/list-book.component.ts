@@ -30,11 +30,12 @@ export class ListBookComponent implements OnInit {
   public editDataItem: Book
   public isNew: boolean;
   public gridView: GridDataResult;
-  public pageSize = 15;
+  public pageSize = 10;
   public skip = 0;
   private arrBook: Book[];
   public totalRecord: number = 0;
   public searchname: string = "0";
+  public loading:boolean=false;
 
 
   constructor(public bookService: BookService,
@@ -91,6 +92,7 @@ public onSubmit(frmSearch:NgForm) {
   
   
   public loadData(seachname: string, skip: number, pagesize: number) {
+    this.loading=true;
     this.bookService.getBook(seachname, skip, pagesize).subscribe(
       (data) => {
 
@@ -102,6 +104,7 @@ public onSubmit(frmSearch:NgForm) {
           data: this.arrBook,
           total: this.totalRecord
         }
+        this.loading=false;
       }
     )
   }

@@ -21,11 +21,12 @@ export class ListCategoryBookComponent implements OnInit {
   public isNew: boolean;
   public view: Observable<GridDataResult>;
   public gridView: GridDataResult;
-  public pageSize = 15;
+  public pageSize = 10;
   public skip = 0;
   private arrCategory: Category[];
   public totalRecord: number = 0;
   public searchname: string = "0";
+  public loading:boolean=false;
 
 
 
@@ -92,6 +93,7 @@ export class ListCategoryBookComponent implements OnInit {
     this.loadData(this.searchname, this.skip / this.pageSize, this.pageSize);
   }
   public loadData(seachname: string, skip: number, pagesize: number) {
+    this.loading=true;
     this.categoryService.getCategory(seachname, skip, pagesize).subscribe(
       (data) => {
 
@@ -103,6 +105,7 @@ export class ListCategoryBookComponent implements OnInit {
           data: this.arrCategory,
           total: this.totalRecord
         }
+        this.loading=false;
       }
     )
   }

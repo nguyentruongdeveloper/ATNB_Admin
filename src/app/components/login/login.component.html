@@ -1,37 +1,45 @@
-<div class="login-form">
-    <form novalidate [formGroup]="editForm" (ngSubmit)="onSubmit()">
-        <div class="avatar">
-            <i class="material-icons">&#xE7FF;</i>
-        </div>
-        <h4 class="modal-title">Login to Your Account</h4>
-        <div class="form-group">
-            <input type="text" formControlName="username" placeholder="Username" class="form-control">
-            <div class="k-tooltip k-tooltip-validation" [hidden]="editForm.controls.username.valid || editForm.controls.username.pristine">
-                Username is required
-            </div>
-        </div>
-        <div class="form-group">
-            <input type="password" class="form-control" placeholder="Password" formControlName="password">
-            <div class="k-tooltip k-tooltip-validation" [hidden]="editForm.controls.password.valid || editForm.controls.password.pristine">
-                Password is required
-            </div>
-            <div class="k-tooltip" *ngIf="!IsLoginSuss" >
-                    {{messReponse}} 
-            </div>
 
+<div class="pagelogin">
+    <div class="login-form" *ngIf="!IsLoadingForm">
+        <form novalidate [formGroup]="editForm" (ngSubmit)="onSubmit()">
+            <div class="avatar">
+                <i class="material-icons">&#xE7FF;</i>
+            </div>
+            <h4 class="modal-title">Login to Your Account</h4>
+            <div class="form-group">
+                <input type="text" formControlName="username" placeholder="Username" class="form-control">
+                <div class="k-tooltip k-tooltip-validation" [hidden]="editForm.controls.username.valid || editForm.controls.username.pristine">
+                    Username is required
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="Password" formControlName="password">
+                <div class="k-tooltip k-tooltip-validation" [hidden]="editForm.controls.password.valid || editForm.controls.password.pristine">
+                    Password is required
+                </div>
+                <div class="k-tooltip" *ngIf="!IsLoginSuss" >
+                        {{messReponse}} 
+                </div>
+    
+            </div>
+            
+               
+    
+            
+            <div class="form-group small clearfix">
+                <label class="checkbox-inline">
+                    <input type="checkbox"> Remember me</label>
+                <a href="#" class="forgot-link">Forgot Password?</a>
+            </div>
+            <input type="submit" class="btn btn-primary btn-block btn-lg" value="Login" [disabled]="!editForm.valid">
+        </form>
+        <div class="text-center small">Don't have an account?
+            <a routerLink="/register">Sign up</a>
         </div>
-        
-           
-
-        
-        <div class="form-group small clearfix">
-            <label class="checkbox-inline">
-                <input type="checkbox"> Remember me</label>
-            <a href="#" class="forgot-link">Forgot Password?</a>
-        </div>
-        <input type="submit" class="btn btn-primary btn-block btn-lg" value="Login" [disabled]="!editForm.valid">
-    </form>
-    <div class="text-center small">Don't have an account?
-        <a routerLink="/register">Sign up</a>
+    </div>
+    <div *ngIf="IsLoadingForm"  class ="loading-form">
+        <img src="./assets/img/animated-loading-gif-2.gif" >
     </div>
 </div>
+
+

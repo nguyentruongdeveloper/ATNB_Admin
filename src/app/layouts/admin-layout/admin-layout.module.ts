@@ -47,6 +47,8 @@ import { BookService } from '../../service/book.service';
 import { ShareService } from '../../service/shareservice';
 import { StatusbookService } from '../../service/statusbook.service';
 import { SharedataService } from '../../service/sharedata.service';
+import{EditUserComponent} from '../../user-components/edit-user/edit-user.component';
+import {ListUserComponent } from '../../user-components/list-user/list-user.component';
 
 
 
@@ -86,7 +88,9 @@ import { SharedataService } from '../../service/sharedata.service';
     ListAuthorComponent,
     EditAuthorComponent,
     ListPublisherComponent,
-    EditPublisherComponent
+    EditPublisherComponent,
+    ListUserComponent,
+    EditUserComponent
 
 
 

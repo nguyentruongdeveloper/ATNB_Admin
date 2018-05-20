@@ -1,31 +1,34 @@
 import { Component, OnInit } from '@angular/core';
-import { Author } from '../../model/author';
+
 import { GridDataResult, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
-import { AuthorService } from '../../service/author.service';
-import { ShareDataUserService } from '../../service/share-data-user.service';
+
 import { Router } from '@angular/router';
+import{User} from '../../../app/model//user';
+import{ShareDataUserService}from '../../service//share-data-user.service';
+import{UserService} from '../../service/user.service';
 
 @Component({
-  selector: 'app-list-author',
-  templateUrl: './list-author.component.html',
-  styleUrls: ['./list-author.component.scss']
+  selector: 'app-list-user',
+  templateUrl: './list-user.component.html',
+  styleUrls: ['./list-user.component.scss']
 })
-export class ListAuthorComponent implements OnInit {
+export class ListUserComponent implements OnInit {
+
   public listItems: Array<string> = [
     '10', '15', '20', '25',
     '30'
   ];
-  public editDataItem: Author
+  public editDataItem:User
   public isNew: boolean;
   public gridView: GridDataResult;
   public pageSize = 10;
   public skip = 0;
-  private arrCategory: Author[];
+  private arrUser:User[];
   public totalRecord: number = 0;
   public searchname: string = "0";
   public loading:boolean=false;
-  constructor(public authorService: AuthorService,
+  constructor(public _userService: UserService,
     private _shareDataUserService:   ShareDataUserService,
     private _urlRouter :Router
      )
@@ -35,10 +38,10 @@ export class ListAuthorComponent implements OnInit {
 
   ngOnInit() {
     //check Login
-    if(this._shareDataUserService.User==null)
-    {
-      this._urlRouter.navigate(['/login']);
-    }
+    // if(this._shareDataUserService.User==null)
+    // {
+    //   this._urlRouter.navigate(['/login']);
+    // }
     this.loadData(this.searchname, this.skip / this.pageSize, this.pageSize);
   }
   public valueChange(value: any): void {
@@ -85,7 +88,7 @@ public onSubmit(frmSearch:NgForm) {
 }
 
   public addHandler() {
-    this.editDataItem = new Author()
+    this.editDataItem = new User()
     this.isNew = true;
   }
   
@@ -95,15 +98,15 @@ public onSubmit(frmSearch:NgForm) {
   }
   public loadData(seachname: string, skip: number, pagesize: number) {
     this.loading=true;
-    this.authorService.getAuthor(seachname, skip, pagesize).subscribe(
+    this._userService.getUser(seachname, skip, pagesize).subscribe(
       (data) => {
 
-        this.arrCategory = data["data"] as Author[];
+        this.arrUser = data["data"] as User[];
         this.totalRecord = data["total"] as number;
         
 
         this.gridView = {
-          data: this.arrCategory,
+          data: this.arrUser,
           total: this.totalRecord
         }
         this.loading=false;
@@ -119,9 +122,9 @@ public onSubmit(frmSearch:NgForm) {
     this.editDataItem = undefined;
   }
 
-  public saveHandler(entity: Author) {
+  public saveHandler(entity:User) {
 
-    this.authorService.SaveAuthor(entity, this.isNew).subscribe(data => { this.loadData(this.searchname, this.skip, this.pageSize); });
+    this._userService.SaveUser(entity, this.isNew).subscribe(data => { this.loadData(this.searchname, this.skip, this.pageSize); });
 
 
     this.editDataItem = undefined;
@@ -130,8 +133,8 @@ public onSubmit(frmSearch:NgForm) {
   public removeHandler({ dataItem }) {
 
 
-    let objAuthor: Author = dataItem as Author;
-    this.authorService.deleteAuthor(objAuthor)
+    let objUser: User = dataItem as User;
+    this._userService.deleteUser(objUser)
       .subscribe((data) => { this.loadData(this.searchname, this.skip, this.pageSize) });
 
 

@@ -72,10 +72,10 @@ export class DashboardComponent implements OnInit {
   };
   ngOnInit()
    {
-    if(this._shareDataUserService.User==null)
-    {
-      this.urlRouter.navigate(['/login']);
-    }
+    // if(this._shareDataUserService.User==null)
+    // {
+    //   this.urlRouter.navigate(['/login']);
+    // }
       /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
 
       const dataDailySalesChart: any = {

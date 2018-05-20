@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
 });
 private messReponse:string= "";
 private IsLoginSuss:boolean=true;
+private IsLoadingForm:boolean=false;
 
   constructor(public urlRouter:Router,
               private _userService:UserService,
@@ -30,6 +31,7 @@ private IsLoginSuss:boolean=true;
   }
   public onSubmit()
   {
+    this.IsLoadingForm=true;
     this._userService.getUserName(this.editForm.value.username,this.editForm.value.password).subscribe(
       (data) =>{
         console.log(data);
@@ -37,10 +39,13 @@ private IsLoginSuss:boolean=true;
         if(this.IsLoginSuss==true)
         {
            this._shareDataUserService.User = data["data"] as User;
+          
            this.urlRouter.navigate(['/dashboard']);
+           this.IsLoadingForm=false;
 
         }
         else{
+          this.IsLoadingForm=false;
           this.messReponse = "Username or Password Is Valid"
         }
       
