@@ -1,7 +1,7 @@
 
 <div class="pagelogin">
     <div class="login-form" *ngIf="!IsLoadingForm">
-        <form novalidate [formGroup]="editForm" (ngSubmit)="onSubmit()">
+        <form novalidate [formGroup]="editForm" (ngSubmit)="onSubmit()" (submit)="onSubmit()"   >
             <div class="avatar">
                 <i class="material-icons">&#xE7FF;</i>
             </div>
@@ -17,9 +17,9 @@
                 <div class="k-tooltip k-tooltip-validation" [hidden]="editForm.controls.password.valid || editForm.controls.password.pristine">
                     Password is required
                 </div>
-                <div class="k-tooltip" *ngIf="!IsLoginSuss" >
+                <!-- <div class="k-tooltip" *ngIf="!IsLoginSuss" >
                         {{messReponse}} 
-                </div>
+                </div> -->
     
             </div>
             
@@ -31,14 +31,14 @@
                     <input type="checkbox"> Remember me</label>
                 <a href="#" class="forgot-link">Forgot Password?</a>
             </div>
-            <input type="submit" class="btn btn-primary btn-block btn-lg" value="Login" [disabled]="!editForm.valid">
+            <button type="submit" class="btn btn-primary btn-block btn-lg" value="Login" [disabled]="!editForm.valid" (keyup)="onSubmit()" (submit)="onSubmit()" >Login</button>
         </form>
         <div class="text-center small">Don't have an account?
             <a routerLink="/register">Sign up</a>
         </div>
     </div>
     <div *ngIf="IsLoadingForm"  class ="loading-form">
-        <img src="./assets/img/animated-loading-gif-2.gif" >
+            <div class="loader"></div>
     </div>
 </div>
 

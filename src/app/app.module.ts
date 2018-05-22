@@ -27,6 +27,7 @@ import { UserService } from './service/user.service';
 import { ShareDataUserService } from './service/share-data-user.service';
 import { ShareService } from './service/shareservice';
 import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -44,6 +45,9 @@ import { HttpClientModule } from '@angular/common/http';
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
+    ToastrModule.forRoot( {timeOut: 1500,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,}),
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     })

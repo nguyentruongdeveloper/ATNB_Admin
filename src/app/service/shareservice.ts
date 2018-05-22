@@ -62,7 +62,7 @@ export class ShareService {
         return this._http.post(_url, file);
 
     }
-    httpPost<T>(_url:string,entity:T):Observable<any> {
+    httpPost<T>(_url:string,entity:T):Observable<T> {
        
         const httpOptions = {
             headers: new HttpHeaders({
@@ -73,7 +73,7 @@ export class ShareService {
         let body = JSON.stringify(entity);  
      
     
-        return this._http.post(_url, body,httpOptions);
+        return this._http.post<T>(_url, body,httpOptions);
        
         
         

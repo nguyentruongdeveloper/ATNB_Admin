@@ -15,11 +15,12 @@ import { User } from '../../model/user';
 export class EditUserComponent  {
 
   public active = false;
+  private emailPattern= "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
   public editForm: FormGroup = new FormGroup({
       'UserID': new FormControl(),
       'UserName': new FormControl('', Validators.required),
-      'Password': new FormControl(),
-      'Email': new FormControl()
+      'Password': new FormControl('', Validators.required),
+      'Email': new FormControl('',[Validators.required])
       
   });
 

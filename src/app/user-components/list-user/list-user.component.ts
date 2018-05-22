@@ -37,11 +37,11 @@ export class ListUserComponent implements OnInit {
       }
 
   ngOnInit() {
-    //check Login
-    // if(this._shareDataUserService.User==null)
-    // {
-    //   this._urlRouter.navigate(['/login']);
-    // }
+     //check Login
+    if(this._shareDataUserService.User==null)
+    {
+      this._urlRouter.navigate(['/login']);
+    }
     this.loadData(this.searchname, this.skip / this.pageSize, this.pageSize);
   }
   public valueChange(value: any): void {

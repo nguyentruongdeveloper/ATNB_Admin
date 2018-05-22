@@ -5,6 +5,7 @@ import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
 import { AuthorService } from '../../service/author.service';
 import { ShareDataUserService } from '../../service/share-data-user.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-list-author',
@@ -16,71 +17,69 @@ export class ListAuthorComponent implements OnInit {
     '10', '15', '20', '25',
     '30'
   ];
-  public editDataItem: Author
-  public isNew: boolean;
-  public gridView: GridDataResult;
-  public pageSize = 10;
-  public skip = 0;
+  private editDataItem: Author
+  private isNew: boolean;
+  private gridView: GridDataResult;
+  private pageSize = 15;
+  private skip = 0;
   private arrCategory: Author[];
-  public totalRecord: number = 0;
-  public searchname: string = "0";
-  public loading:boolean=false;
+  private totalRecord: number = 0;
+  private searchName: string = "0";
+  private loading:boolean=false;
   constructor(public authorService: AuthorService,
     private _shareDataUserService:   ShareDataUserService,
-    private _urlRouter :Router
-     )
-      { 
-
-      }
-
+    private _urlRouter :Router,
+    private toastr: ToastrService
+     ){}
+      
   ngOnInit() {
-    //check Login
+    
     if(this._shareDataUserService.User==null)
     {
       this._urlRouter.navigate(['/login']);
     }
-    this.loadData(this.searchname, this.skip / this.pageSize, this.pageSize);
+    this.loadData(this.searchName, this.skip / this.pageSize, this.pageSize);
   }
   public valueChange(value: any): void {
     this.pageSize = value;
-    this.loadData(this.searchname, this.skip / this.pageSize, this.pageSize);
+    this.loadData(this.searchName, this.skip / this.pageSize, this.pageSize);
    
 }
 
 public selectionChange(value: any): void {
   this.pageSize = value;
-  this.loadData(this.searchname, this.skip / this.pageSize, this.pageSize);
+  this.loadData(this.searchName, this.skip / this.pageSize, this.pageSize);
 }
 
 public enterSearch(frmSearch:NgForm)
 {
-  this.searchname = frmSearch.value.txtSearch;
+  this.searchName = frmSearch.value.txtSearch;
   
-  if (this.searchname.length < 1) {
-    this.searchname = "0";
+  if (this.searchName.length < 1) {
+    this.searchName = "0";
 
   }
- this.loadData(this.searchname, this.skip / this.pageSize, this.pageSize);
+ this.loadData(this.searchName, this.skip / this.pageSize, this.pageSize);
 }
 public blurSearch(frmSearch:NgForm)
 {
-  this.searchname = frmSearch.value.txtSearch;
+  this.searchName = frmSearch.value.txtSearch;
   
-  if (this.searchname.length < 1) {
-    this.searchname = "0";
+  if (this.searchName.length < 1) {
+    this.searchName = "0";
 
   }
- this.loadData(this.searchname, this.skip / this.pageSize, this.pageSize);
+ this.loadData(this.searchName, this.skip / this.pageSize, this.pageSize);
 
 }
 public onSubmit(frmSearch:NgForm) {
-  this.searchname = frmSearch.value.txtSearch;
+  this.searchName = frmSearch.value.txtSearch;
   
-   if (this.searchname.length < 1) {
-     this.searchname = "0";
+   if (this.searchName.length < 1) {
+     this.searchName = "0";
 
    }
-  this.loadData(this.searchname, this.skip / this.pageSize, this.pageSize);
+  this.loadData(this.searchName, this.skip / this.pageSize, this.pageSize);
 
 }
 
@@ -91,7 +90,7 @@ public onSubmit(frmSearch:NgForm) {
   
   public pageChange(event: PageChangeEvent): void {
     this.skip = event.skip;
-    this.loadData(this.searchname, this.skip / this.pageSize, this.pageSize);
+    this.loadData(this.searchName, this.skip / this.pageSize, this.pageSize);
   }
   public loadData(seachname: string, skip: number, pagesize: number) {
     this.loading=true;
@@ -107,7 +106,9 @@ public onSubmit(frmSearch:NgForm) {
           total: this.totalRecord
         }
         this.loading=false;
-      }
+       
+      },
+      err=>{this.toastr.success(err)}
     )
   }
 
@@ -121,7 +122,21 @@ public onSubmit(frmSearch:NgForm) {
 
   public saveHandler(entity: Author) {
 
-    this.authorService.SaveAuthor(entity, this.isNew).subscribe(data => { this.loadData(this.searchname, this.skip, this.pageSize); });
+    this.authorService.SaveAuthor(entity, this.isNew).subscribe(
+      data => {
+        if(this.isNew)
+        {
+          this.toastr.success("Add Data Success!");
+           
+
+        }
+        else{
+          this.toastr.success("Update Data Success!");
+         
+        }
+        this.loadData(this.searchName, this.skip, this.pageSize); 
+      },
+      err=>{this.toastr.success(err)});
 
 
     this.editDataItem = undefined;
@@ -132,7 +147,7 @@ public onSubmit(frmSearch:NgForm) {
 
     let objAuthor: Author = dataItem as Author;
     this.authorService.deleteAuthor(objAuthor)
-      .subscribe((data) => { this.loadData(this.searchname, this.skip, this.pageSize) });
+      .subscribe((data) => { this.loadData(this.searchName, this.skip, this.pageSize) },err=>{this.toastr.success(err)});
 
 
   }

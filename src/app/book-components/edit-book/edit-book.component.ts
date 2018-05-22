@@ -14,6 +14,7 @@ import { BookService } from '../../service/book.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Book } from '../../model/book';
 import { SharedataService } from '../../service/sharedata.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-edit-book',
@@ -62,12 +63,10 @@ export class EditBookComponent implements OnInit  {
     constructor(private _categoryService:CategoryService, private authorService:AuthorService,
                 private publisherService:PublisherService,private statusbookService:StatusbookService,
                 private bookService:BookService,private activeRoute: ActivatedRoute,
-                private urlRouter:Router,private _shareDataService: SharedataService 
-            ) 
-    {
-        
-        
-    }
+                private urlRouter:Router,private _shareDataService: SharedataService ,
+                private toastr: ToastrService
+            ) {}
+   
     ngOnInit()
     {
         this.IsNew = this._shareDataService.ShareData["IsNew"] as boolean;
@@ -142,7 +141,12 @@ export class EditBookComponent implements OnInit  {
           objBook.PublisherID= this.editForm.value.PublisherID;
           objBook.Price = this.editForm.value.Price;
           objBook.Quantity = this.editForm.value.Quantity;
-          objBook.ImgUrl = this.myFiles[0]["name"];
+          if(this.myFiles.length>0)
+          {
+            objBook.ImgUrl = this.myFiles[0]["name"];
+
+          }
+          
           objBook.IsActive=true;
           objBook.StatusBookID=this.editForm.value.StatusBookID;
         
@@ -151,23 +155,41 @@ export class EditBookComponent implements OnInit  {
          
           
           this.bookService.postFile(this.frmData).subscribe(data=>{   
-              this.bookService.SaveBook(objBook,this.IsNew).subscribe(data => { this.editForm.reset(new Book()) })
+              this.bookService.SaveBook(objBook,this.IsNew).subscribe(data => { this.toastr.success("Add Book Success") ;this.editForm.reset(new Book()) },err=>{this.toastr.success(err)})
             });
 
 
         }
         else
-        {
+        { 
+            this.editDataItem.Title = this.editForm.value.Title;
+            this.editDataItem.Summary= this.editForm.value.Summary;
+            this.editDataItem.CategoryID=this.editForm.value.CategoryID;
+            this.editDataItem.AuthorID = this.editForm.value.AuthorID;
+            this.editDataItem.PublisherID= this.editForm.value.PublisherID;
+            this.editDataItem.Price = this.editForm.value.Price;
+            this.editDataItem.Quantity = this.editForm.value.Quantity;
+           
+           
+            this.editDataItem.StatusBookID=this.editForm.value.StatusBookID;
+         
           
             if(this.isChangeFile==true)
             {
-               
+
+               if(this.myFiles.length>0)
+               {
                 this.editDataItem.ImgUrl = this.myFiles[0]["name"];
+
+               }
+             
                 this.bookService.postFile(this.frmData).subscribe(data=>{   
-                    this.bookService.SaveBook(this.editDataItem,this.IsNew).subscribe(data => { this.urlRouter.navigate(['/book-management']) })
+                    this.bookService.SaveBook(this.editDataItem,this.IsNew).subscribe(data => { this.toastr.success("Update Book Success") ;this.urlRouter.navigate(['/book-management']) },err=>{this.toastr.success(err)})
                   });
             }
-            else{
+            else
+            {
+                
                
                 this.bookService.SaveBook(this.editDataItem,this.IsNew).subscribe(data => { this.urlRouter.navigate(['/book-management']) });
 

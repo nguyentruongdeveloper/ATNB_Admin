@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from '../../service/user.service';
 import { ShareDataUserService } from '../../service/share-data-user.service';
 import { User } from '../../model/user';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -23,7 +24,8 @@ private IsLoadingForm:boolean=false;
 
   constructor(public urlRouter:Router,
               private _userService:UserService,
-              private _shareDataUserService:ShareDataUserService
+              private _shareDataUserService:ShareDataUserService,
+              private toastr: ToastrService
   ) { }
 
   ngOnInit() {
@@ -31,10 +33,18 @@ private IsLoadingForm:boolean=false;
   }
   public onSubmit()
   {
+    this.Login();
+
+  }
+ 
+  public Login()
+  {
+    
+   
     this.IsLoadingForm=true;
     this._userService.getUserName(this.editForm.value.username,this.editForm.value.password).subscribe(
       (data) =>{
-        console.log(data);
+        
         this.IsLoginSuss  = data["IsLoginSuss"] as boolean
         if(this.IsLoginSuss==true)
         {
@@ -46,18 +56,17 @@ private IsLoadingForm:boolean=false;
         }
         else{
           this.IsLoadingForm=false;
-          this.messReponse = "Username or Password Is Valid"
+          this.toastr.success("Username or Password Is Valid")
+          // this.messReponse = "Username or Password Is Valid"
         }
       
 
+      },
+      err=>{   this.IsLoadingForm=false;
+        this.toastr.success(err)
       }
+
     )
-
-  }
-  public Login()
-  {
-   
-
   }
 
 }

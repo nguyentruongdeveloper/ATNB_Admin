@@ -25,11 +25,13 @@
     <div class="form-group">
       <label for="Email" class="control-label">Email</label>
 
-      <input type="text" class="k-textbox" formControlName="Email" height="300px" />
-
+      <input type="text" class="k-textbox" formControlName="Email" height="300px"  />
+     
+ 
       <div class="k-tooltip k-tooltip-validation" [hidden]="editForm.controls.Email.valid || editForm.controls.Email.pristine">
         Email is required
       </div>
+    
     </div>
 
   </form>

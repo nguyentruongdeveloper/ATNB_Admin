@@ -24,6 +24,7 @@ import { ButtonsModule } from '@progress/kendo-angular-buttons';
 
 
 
+
 import {
   MatButtonModule,
   MatInputModule,
@@ -70,7 +71,8 @@ import {ListUserComponent } from '../../user-components/list-user/list-user.comp
     InputsModule,
     UploadModule,
     ButtonsModule,
-    DropDownsModule
+    DropDownsModule,
+  
   ],
   declarations: [
     DashboardComponent,

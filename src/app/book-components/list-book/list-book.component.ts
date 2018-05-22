@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { products } from '../../model/products';
 import { Product } from '../../model/product';
-import { GridDataResult } from '@progress/kendo-angular-grid';
+import { GridDataResult, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { State, process } from '@progress/kendo-data-query';
 import { Observable } from 'rxjs/Observable';
 import { EditService } from '../../service/edit.service';
@@ -15,6 +15,7 @@ import { BookService } from '../../service/book.service';
 import { Book } from '../../model/book';
 import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
 import { SharedataService } from '../../service/sharedata.service';
+import { ShareDataUserService } from '../../service/share-data-user.service';
 
 
 @Component({
@@ -30,7 +31,7 @@ export class ListBookComponent implements OnInit {
   public editDataItem: Book
   public isNew: boolean;
   public gridView: GridDataResult;
-  public pageSize = 10;
+  public pageSize = 15;
   public skip = 0;
   private arrBook: Book[];
   public totalRecord: number = 0;
@@ -39,11 +40,19 @@ export class ListBookComponent implements OnInit {
 
 
   constructor(public bookService: BookService,
-              public _router :Router, public _shareDataService: SharedataService     ) {
+              public _router :Router, public _shareDataService: SharedataService  ,
+              private _shareDataUserService:   ShareDataUserService,
+              
+               ) {
 
   }
 
   public ngOnInit(): void {
+    //login 
+    if(this._shareDataUserService.User==null)
+    {
+      this._router.navigate(['/login']);
+    }
     this.loadData(this.searchname,0,this.pageSize);
 
   }
@@ -89,7 +98,10 @@ public onSubmit(frmSearch:NgForm) {
   this.loadData(this.searchname, this.skip / this.pageSize, this.pageSize);
 
 }
-  
+public pageChange(event: PageChangeEvent): void {
+  this.skip = event.skip;
+  this.loadData(this.searchname, this.skip / this.pageSize, this.pageSize);
+}
   
   public loadData(seachname: string, skip: number, pagesize: number) {
     this.loading=true;

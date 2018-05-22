@@ -6,6 +6,9 @@ import { GridDataResult, PageChangeEvent } from '@progress/kendo-angular-grid';
 import { HttpClient } from '@angular/common/http';
 import { Http } from '@angular/http';
 import { FormGroup, FormControl, Validators, NgForm } from '@angular/forms';
+import { ShareDataUserService } from '../../service/share-data-user.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-list-category-book',
@@ -21,17 +24,21 @@ export class ListCategoryBookComponent implements OnInit {
   public isNew: boolean;
   public view: Observable<GridDataResult>;
   public gridView: GridDataResult;
-  public pageSize = 10;
+  public pageSize = 15;
   public skip = 0;
   private arrCategory: Category[];
   public totalRecord: number = 0;
   public searchname: string = "0";
-  public loading:boolean=false;
+  public loading: boolean = false;
 
 
 
 
-  constructor(private categoryService: CategoryService) {
+  constructor(private categoryService: CategoryService,
+    private _shareDataUserService: ShareDataUserService,
+    private _urlRouter: Router,
+    private toastr: ToastrService
+  ) {
 
 
   }
@@ -39,10 +46,14 @@ export class ListCategoryBookComponent implements OnInit {
 
   ngOnInit() {
 
+    //check Login
+    if (this._shareDataUserService.User == null) {
+      this._urlRouter.navigate(['/login']);
+    }
     this.loadData(this.searchname, 0, this.pageSize);
 
   }
-  
+
   public valueChange(value: any): void {
     this.pageSize = value;
     this.loadData(this.searchname, this.skip / this.pageSize, this.pageSize);
@@ -53,34 +64,32 @@ export class ListCategoryBookComponent implements OnInit {
     this.pageSize = value;
     this.loadData(this.searchname, this.skip / this.pageSize, this.pageSize);
   }
-  public enterSearch(frmSearch:NgForm)
-  {
+  public enterSearch(frmSearch: NgForm) {
     this.searchname = frmSearch.value.txtSearch;
-    
+
     if (this.searchname.length < 1) {
       this.searchname = "0";
 
     }
-   this.loadData(this.searchname, this.skip / this.pageSize, this.pageSize);
+    this.loadData(this.searchname, this.skip / this.pageSize, this.pageSize);
   }
-  public blurSearch(frmSearch:NgForm)
-  {
+  public blurSearch(frmSearch: NgForm) {
     this.searchname = frmSearch.value.txtSearch;
-    
+
     if (this.searchname.length < 1) {
       this.searchname = "0";
 
     }
-   this.loadData(this.searchname, this.skip / this.pageSize, this.pageSize);
+    this.loadData(this.searchname, this.skip / this.pageSize, this.pageSize);
 
   }
-  public onSubmit(frmSearch:NgForm) {
+  public onSubmit(frmSearch: NgForm) {
     this.searchname = frmSearch.value.txtSearch;
-    
-     if (this.searchname.length < 1) {
-       this.searchname = "0";
 
-     }
+    if (this.searchname.length < 1) {
+      this.searchname = "0";
+
+    }
     this.loadData(this.searchname, this.skip / this.pageSize, this.pageSize);
 
   }
@@ -93,7 +102,7 @@ export class ListCategoryBookComponent implements OnInit {
     this.loadData(this.searchname, this.skip / this.pageSize, this.pageSize);
   }
   public loadData(seachname: string, skip: number, pagesize: number) {
-    this.loading=true;
+    this.loading = true;
     this.categoryService.getCategory(seachname, skip, pagesize).subscribe(
       (data) => {
 
@@ -105,8 +114,9 @@ export class ListCategoryBookComponent implements OnInit {
           data: this.arrCategory,
           total: this.totalRecord
         }
-        this.loading=false;
-      }
+        this.loading = false;
+      },
+      err=>{this.toastr.success(err)}
     )
   }
   public addHandler() {
@@ -123,7 +133,21 @@ export class ListCategoryBookComponent implements OnInit {
 
   public saveHandler(category: Category) {
 
-    this.categoryService.SaveCategory(category, this.isNew).subscribe(data => { this.loadData(this.searchname, this.skip, this.pageSize); });
+    this.categoryService.SaveCategory(category, this.isNew).subscribe(
+      data => { 
+        if(this.isNew)
+        {
+            this.toastr.success("Add Data Success!");
+        }
+        else
+        {
+          this.toastr.success("Update Data Success!");
+        }
+        this.loadData(this.searchname, this.skip, this.pageSize);
+       },
+       err=>{this.toastr.success(err)}
+
+      );
 
 
     this.editDataItem = undefined;

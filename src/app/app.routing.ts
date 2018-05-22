@@ -25,7 +25,7 @@ const routes: Routes =[
     children: [
         {
       path: '',
-      // loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
+      //  loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
       loadChildren:()=>AdminLayoutModule
   }]}
     // { path: 'dashboard',      component: DashboardComponent },
